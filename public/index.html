@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Reading Queue</title>
+    <meta name="description" content="A small, temporary reading list demo built with Cloudflare Workers and D1.">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/styles.css">
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#queue-heading">Skip to your queue</a>
+
+    <header class="site-header">
+      <div class="wrap">
+        <h1>Reading Queue</h1>
+        <p class="tagline">Save links to read later. A small Cloudflare Workers and D1 example.</p>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <noscript><p>This demo needs JavaScript to add and manage links.</p></noscript>
+      <section class="notice" aria-labelledby="notice-heading">
+        <h2 id="notice-heading">Temporary public demo</h2>
+        <ul>
+          <li><strong>Do not save private or sensitive links.</strong> This is a demo, not private storage.</li>
+          <li>Up to 20 links per browser. Each link expires within 24 hours.</li>
+          <li>Your queue is tied to a cookie in this browser only. There is no account or sign-in, and nothing syncs between browsers.</li>
+          <li>Links are stored as text and are never fetched.</li>
+        </ul>
+      </section>
+
+      <section class="card" aria-labelledby="add-heading">
+        <h2 id="add-heading">Add a link</h2>
+        <form id="add-form" novalidate>
+          <div class="field">
+            <label for="url">Link</label>
+            <input id="url" name="url" type="url" inputmode="url" autocomplete="off" spellcheck="false"
+              placeholder="https://example.com/article" required aria-describedby="url-hint">
+            <p id="url-hint" class="hint">A public web address starting with http:// or https://.</p>
+          </div>
+          <div class="field">
+            <label for="title">Title</label>
+            <input id="title" name="title" type="text" autocomplete="off" maxlength="300" required>
+          </div>
+          <p id="form-error" class="error" role="alert" hidden></p>
+          <button id="add-button" class="button primary" type="submit">Add link</button>
+        </form>
+      </section>
+
+      <section class="card" aria-labelledby="queue-heading">
+        <div class="queue-header">
+          <h2 id="queue-heading" tabindex="-1">Your queue</h2>
+          <p id="usage" class="muted"></p>
+        </div>
+
+        <div class="filters" role="group" aria-label="Show links">
+          <button type="button" class="filter" data-filter="all" aria-pressed="true">All <span class="count" data-count="all">0</span></button>
+          <button type="button" class="filter" data-filter="unread" aria-pressed="false">Unread <span class="count" data-count="unread">0</span></button>
+          <button type="button" class="filter" data-filter="read" aria-pressed="false">Read <span class="count" data-count="read">0</span></button>
+        </div>
+
+        <p id="list-error" class="error" role="alert" hidden></p>
+        <p id="loading" class="muted">Loading your queue…</p>
+        <ul id="items" class="items"></ul>
+        <p id="filter-empty" class="muted" hidden></p>
+
+        <div id="empty" class="empty" hidden>
+          <p>Your queue is empty. Add a link above, or start with one of these public pages:</p>
+          <ul class="samples">
+            <li>
+              <button type="button" class="button sample" data-url="https://developers.cloudflare.com/workers/"
+                data-title="Cloudflare Workers documentation">Cloudflare Workers documentation</button>
+            </li>
+            <li>
+              <button type="button" class="button sample" data-url="https://developers.cloudflare.com/d1/"
+                data-title="Cloudflare D1 documentation">Cloudflare D1 documentation</button>
+            </li>
+            <li>
+              <button type="button" class="button sample" data-url="https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Cookies"
+                data-title="MDN: Using HTTP cookies">MDN: Using HTTP cookies</button>
+            </li>
+          </ul>
+          <p class="hint">Choosing a suggestion fills in the form. Nothing is saved until you select “Add link”.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <p>Expired links are removed on writes and daily cleanup. Built with Cloudflare Workers static assets and D1.</p>
+        <p>A <a href="https://context-docs.com/">Context Docs</a> worked example. <a href="https://github.com/jaredchu/context-docs-example-reading-queue">Source and walkthrough</a>.</p>
+      </div>
+    </footer>
+
+    <div id="status" class="visually-hidden" role="status" aria-live="polite"></div>
+  </body>
+</html>
