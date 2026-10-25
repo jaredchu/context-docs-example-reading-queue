@@ -39,6 +39,6 @@ Goal: runnable example and reproducible context handoff
 
 ## Boundaries
 
-Use synthetic/public example data only. Keep private operator receipts in the
-separate notes repo. No claimed agent-benefit evaluation; this is an authored
+Use synthetic/public example data only. Keep operator receipts outside the public project when they contain private
+account details. No claimed agent-benefit evaluation; this is an authored
 worked example. Optional event logging is off.

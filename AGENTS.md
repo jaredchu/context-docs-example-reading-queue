@@ -5,11 +5,9 @@ focused on Cloudflare Workers static assets and D1. Do not fetch saved URLs.
 Treat queue data as disposable public-demo data; keep browser sessions isolated
 and enforce limits server-side. Keep credentials out of Git.
 
-Use High reasoning for delegated runs. Preserve human Git authorship and add
-Co-authored-by trailers for Codex and Claude only when they actually assist.
-Do not deploy or publish without task authorization. The current owner task
-authorizes this example repository and its Cloudflare demo; main website changes
-are a preview. Do not install or launch Cursor.
+Preserve human Git authorship and add Co-authored-by trailers for Codex and
+Claude only when they actually assist. Do not deploy, publish or create cloud
+resources unless the person running this session explicitly asks.
 
 ## Context maintenance
 

@@ -43,7 +43,9 @@ does not install skills or change your agent settings.
 ## Deploy your own copy
 
 1. Fork this repository and clone your fork. Change `name` in `wrangler.jsonc`
-   to a unique Worker name before deploying. Keep the `DB` binding.
+   to a unique Worker name before deploying. Set `database_name` to the name you
+   create below and keep the `DB` binding. The .jsonc file intentionally uses
+   strict JSON: the deploy script does not support comments.
 2. Run `npm ci`, `npx wrangler login`, then `npx wrangler whoami`. Select your
    intended Cloudflare account with `CLOUDFLARE_ACCOUNT_ID` if you have several.
 3. Create a database with `npx wrangler d1 create YOUR_DATABASE_NAME`. Save its
@@ -64,17 +66,21 @@ Do not put a token in the configuration file, source, README or shell history.
 The [workflow](.github/workflows/ci.yml) tests pull requests without deployment
 credentials. For pushes to main it tests, applies D1 migrations, deploys, and
 verifies the live health endpoint reports that commit. Documentation-only pushes
-are excluded to avoid unnecessary deployments. A manual run on main is also
+are excluded to avoid unnecessary deployments. Unconfigured forks skip the
+deployment job until the database variable is set. A manual run on main is also
 available. GitHub Actions must be enabled in your fork.
 
-Set these in your fork's Settings → Secrets and variables → Actions:
+Create a GitHub Environment named `production` in Settings → Environments,
+and restrict its deployment branches to `main` only. Put the deployment secret
+there; the workflow uses that environment. Set repository variables in
+Settings → Secrets and variables → Actions:
 
 | Kind | Name | Value |
 | --- | --- | --- |
 | Variable | `CLOUDFLARE_ACCOUNT_ID` | Your intended Cloudflare account |
 | Variable | `CLOUDFLARE_D1_DATABASE_ID` | Your D1 database UUID |
 | Variable | `DEMO_URL` | Your HTTPS workers.dev URL |
-| Secret | `CLOUDFLARE_API_TOKEN` | A dedicated deployment API token |
+| Environment secret (`production`) | `CLOUDFLARE_API_TOKEN` | A dedicated deployment API token |
 
 Use a dedicated token with Workers Scripts Write and D1 Write for the selected
 account, or narrower equivalent permissions supported by your account. These
@@ -83,7 +89,8 @@ resource-level Cloudflare isolation. Rotate the token before its expiry. Never
 copy a local OAuth token into GitHub. The demo's credential is configured
 separately and is not included in this repository.
 
-Only trusted main-branch code receives the deployment token. Review workflow
+With the `production` environment restricted to `main`, only main-branch
+deployment jobs can receive the token. Review workflow
 and dependency changes before merging. There are no automatic PR deployments
 or remote database tests. Migrations run before code: keep them compatible with
 the currently deployed Worker; a code rollback does not reverse a schema change.
