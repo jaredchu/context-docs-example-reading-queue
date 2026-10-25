@@ -41,13 +41,16 @@ Only record checks you actually ran.
 
 Open a fresh session in the same folder and ask:
 
-> Read AGENTS.md, README.md and docs/project-context.md, then sources relevant to
-> the next action. Separate verified facts from pending work. Implement the JSON
-> export requirement, preserve isolation and expiry, run appropriate tests and
-> maintain current context from observed results. Do not deploy.
+> Implement the pending JSON export feature using the existing requirements.
+> Preserve the temporary demo’s browser isolation and expiry behavior. Verify the
+> change with the available local tests. Do not install packages, deploy, provision
+> services, publish, or change files outside this project.
 
-An explicit read helps make the handoff inspectable; it does not prove every
-client automatically loads instructions. The agent still needs to inspect code.
+Only adoption above names a skill. The ordinary implementation prompt asks for
+no context update. Inspect whether the loaded project rule guided maintenance.
+If loading is unconfirmed, ask the agent to read the entry point explicitly;
+if maintenance is missed, retain the miss and request a focused repair.
+The agent still needs to inspect code.
 When sessions share a context file, agree on one writer.
 
 ## 6. Verify the implementation and context
