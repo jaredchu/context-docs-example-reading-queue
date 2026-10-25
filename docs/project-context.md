@@ -48,8 +48,9 @@ The starter and completed tags preserve the pending requirement and implemented
 change. Codex reviewed the Opus baseline; Opus reviewed the integration and one
 focused follow-up found no material issues. The [normal-prompt evidence](evidence/README.md)
 records a separate observed maintenance outcome and its wording qualification.
-Next action for the upstream maintainer: publish the validated companion website
-walkthrough, then gather feedback. Documentation-only commits do not redeploy
+The [companion walkthrough](https://context-docs.com/reading-queue/) is now live
+from the verified `b38853d` Context Docs website build. Next action for the
+upstream maintainer: gather concrete learner feedback. Documentation-only commits do not redeploy
 the app or replace the actual deployed source SHA.
 
 See the [worked steps](walkthrough.md).
@@ -59,7 +60,7 @@ Goal: runnable example and reproducible context handoff
 |-- DONE    Baseline tested; starter revision retained
 |-- DONE    Export implemented with requirement and decision preserved
 |-- CHECKED 18 integration tests and desktop/mobile browser checks
-`-- LIVE    App automatically deployed and verified; companion website publication next
+`-- LIVE    App automatically deployed and verified; companion walkthrough published
 ```
 
 ## Boundaries

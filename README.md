@@ -1,6 +1,7 @@
 # Reading Queue
 
 [Live demo](https://context-docs-example-reading-queue.viweb.workers.dev) ·
+[Step-by-step prompts](https://context-docs.com/reading-queue/) ·
 [Starter](https://github.com/jaredchu/context-docs-example-reading-queue/tree/tutorial-start) ·
 [Completed example](https://github.com/jaredchu/context-docs-example-reading-queue/tree/tutorial-complete)
 
