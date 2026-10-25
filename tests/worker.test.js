@@ -458,3 +458,41 @@ test('unknown routes return 404 and wrong methods return 405', async () => {
     assert.equal(put.headers.get('Allow'), 'GET, POST');
   });
 });
+
+
+test('export reads every active item in the caller queue without metadata or writes', async () => {
+  await withApp(async ({ db, newBrowser }) => {
+    const alice = newBrowser();
+    const bob = newBrowser();
+    const { item } = (await alice.add('Read article', 'https://example.com/read')).body;
+    await alice.setRead(item.id, true);
+    await alice.add('Unread article', 'https://example.com/unread');
+    const expired = (await alice.add('Expired article', 'https://example.com/expired')).body.item;
+    await bob.add('Another browser', 'https://example.com/bob');
+    await db.prepare('UPDATE items SET created_at = ?1, expires_at = ?2 WHERE id = ?3')
+      .bind(nowSeconds() - DAY - 1, nowSeconds() - 1, expired.id).run();
+    assert.equal(await countRows(db), 4, 'expired row remains physically stored before export');
+    const before = await db.prepare('SELECT * FROM items ORDER BY id').all();
+    const exported = await alice.request('GET', '/api/export?filter=unread', { origin: null });
+    assert.equal(exported.status, 200);
+    assert.equal(exported.headers.get('Content-Disposition'), 'attachment; filename="reading-queue.json"');
+    assert.equal(exported.headers.get('Cache-Control'), 'no-store');
+    assert.deepEqual(exported.body, { schema_version: 1, items: [
+      { title: 'Unread article', url: 'https://example.com/unread', read: false },
+      { title: 'Read article', url: 'https://example.com/read', read: true },
+    ] });
+    assert.deepEqual(await db.prepare('SELECT * FROM items ORDER BY id').all(), before);
+    assert.equal((await bob.request('GET', '/api/export', { origin: null })).body.items.length, 1);
+    assert.equal((await alice.request('POST', '/api/export')).status, 405);
+  });
+});
+
+test('an empty export creates no rows and returns a versioned empty array', async () => {
+  await withApp(async ({ db, newBrowser }) => {
+    const browser = newBrowser();
+    const response = await browser.request('GET', '/api/export', { origin: null });
+    assert.deepEqual(response.body, { schema_version: 1, items: [] });
+    assert.match(browser.cookie, SESSION_COOKIE_PATTERN);
+    assert.equal(await countRows(db), 0);
+  });
+});

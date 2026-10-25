@@ -1,0 +1,91 @@
+diff --git a/docs/decisions.md b/docs/decisions.md
+index 87e41de..719e0aa 100644
+--- a/docs/decisions.md
++++ b/docs/decisions.md
+@@ -25,12 +25,22 @@ Sources: [Worker](../src/worker.js), [API tests](../tests/worker.test.js),
+ 
+ ## Export exercise
+ 
+-Status: implementation-team choice; pending at the starter revision.
++Status: implementation-team choice; pending at the starter revision, implemented
++October 25, 2026.
+ Add JSON export as a small second change. It creates a clear handoff without a
+ schema migration or extra service. Export always contains the visitor's entire
+ active queue, regardless of the UI filter, and excludes session identifiers.
+ The [requirement](export-requirement.md) owns acceptance criteria.
+ 
++The implementation (Claude-assisted) adds a read-only `GET /api/export` route.
++It copies only `title`, `url` and `read` on the server, so IDs, timestamps and
++the session never leave the Worker. It never sets a cookie or deletes expired
++rows. The browser requests this route on every export instead of reusing its
++filtered list, and downloads only after a successful response.
++
++Sources: [Worker](../src/worker.js), [browser code](../public/app.js),
++[API tests](../tests/worker.test.js).
++
+ ## Optional history
+ 
+ Status: off. Git commits, decision notes and test/deployment output are enough
+diff --git a/docs/export-requirement.md b/docs/export-requirement.md
+index 4590287..5ef595c 100644
+--- a/docs/export-requirement.md
++++ b/docs/export-requirement.md
+@@ -1,7 +1,10 @@
+ # JSON export change
+ 
+-Status: pending at `tutorial-start`. This teaching requirement was chosen by the
+-implementation team; it is not a verbatim owner request or historical transcript.
++Status: pending at `tutorial-start`. Implemented in the working tree on October
++25, 2026; the browser checks below are still pending (see
++[current work](project-context.md#current-work)). This teaching requirement was
++chosen by the implementation team; it is not a verbatim owner request or
++historical transcript.
+ 
+ ## Acceptance criteria
+ 
+diff --git a/docs/project-context.md b/docs/project-context.md
+index e54b112..ab2d428 100644
+--- a/docs/project-context.md
++++ b/docs/project-context.md
+@@ -17,23 +17,28 @@ to files. Main website walkthrough remains a preview pending publication directi
+ ## Current work
+ 
+ The baseline implements adding, marking read/unread, filtering and deletion.
+-The 16 Worker integration tests passed locally on October 25, 2026 against real
+-workerd/D1. A Wrangler deployment dry run and local schema migration passed;
+-`npm audit` reports zero vulnerabilities with the compatible undici override.
+-These are application checks, not a Context Docs agent evaluation.
+-
+-JSON export remains pending. The [requirement](export-requirement.md) and
+-[decision](decisions.md#export-exercise) own its scope: export the whole active
+-queue regardless of the UI filter, without session metadata or writes.
+-Next action: implement that change, test downloads and errors, update context,
+-then complete the authorized repository publication and Cloudflare deployment.
+-See the [worked steps](walkthrough.md).
++Before the export change, a Wrangler deployment dry run and local schema migration
++passed, and `npm audit` reported zero vulnerabilities with the compatible undici
++override.
++
++JSON export is implemented but not yet browser-verified or committed. The
++[requirement](export-requirement.md) and [decision](decisions.md#export-exercise)
++own its scope: export the whole active queue regardless of the UI filter, without
++session metadata or writes. All 20 Worker integration tests, including four new
++export tests, passed locally on October 25, 2026 against real workerd/D1. The
++Wrangler dry run, `git diff --check` and the browser download and failed-request
++checks were not run after the change. These are application checks, not a
++Context Docs agent evaluation.
++
++Next action: run those remaining checks ([step 6](walkthrough.md#6-verify-the-implementation-and-context)),
++then commit. After that, complete the authorized repository publication and
++Cloudflare deployment.
+ 
+ ```text
+ Goal: runnable example and reproducible context handoff
+ |-- DONE    Implement and test baseline app
+-|-- READY   Starter state with linked export requirement
+-|-- NEXT    Implement export, preserve decision and validation evidence
++|-- DONE    Starter state with linked export requirement
++|-- PARTIAL Implement export: API tests pass; browser and dry-run checks pending
+ `-- NEXT    Publish app repository, deploy demo, verify CI/CD and website preview
+ ```
+ 

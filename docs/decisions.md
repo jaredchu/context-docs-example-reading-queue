@@ -25,7 +25,7 @@ Sources: [Worker](../src/worker.js), [API tests](../tests/worker.test.js),
 
 ## Export exercise
 
-Status: implementation-team choice; pending at the starter revision.
+Status: implemented; pending in the retained starter revision.
 Add JSON export as a small second change. It creates a clear handoff without a
 schema migration or extra service. Export always contains the visitor's entire
 active queue, regardless of the UI filter, and excludes session identifiers.

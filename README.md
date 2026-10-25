@@ -34,7 +34,9 @@ with the export requirement still pending. `tutorial-complete` contains the
 completed JSON export. These are real Git snapshots of this example; they are
 not recordings of an independent agent experiment.
 
-[Decisions](docs/decisions.md) explain the design. [Export requirements](docs/export-requirement.md)
+[The ordinary-prompt check](docs/evidence/README.md) retains one observed
+maintenance outcome and its limits; the other tutorial prompts are authored
+guidance. [Decisions](docs/decisions.md) explain the design. [Export requirements](docs/export-requirement.md)
 own the exercise's acceptance criteria. AGENTS.md contains the maintenance rule;
 CLAUDE.md imports it. Install the Context Docs skills separately using the
 [installation guide](https://context-docs.com/getting-started/). This repository

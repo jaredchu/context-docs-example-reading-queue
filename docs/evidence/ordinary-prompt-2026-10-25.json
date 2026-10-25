@@ -1,0 +1,43 @@
+{
+  "date": "2026-10-25",
+  "kind": "maintainer-run focused native continuation; not independent validation",
+  "fixture_commit": "2f126145d8a96f3c77e3616a23148f20f54c3f37",
+  "prompt": "Implement the pending JSON export feature using the existing requirements. Preserve the temporary demo’s browser isolation and expiry behavior. Verify the change with the available local tests. Do not install packages, deploy, provision services, publish, or change files outside this project.",
+  "prompt_names_skill": false,
+  "prompt_requests_documentation_update": false,
+  "configured_model": "claude-opus-5-5",
+  "configured_reasoning": "high",
+  "reported_models": [
+    "claude-opus-5-5"
+  ],
+  "client": "Claude Code CLI 2.1.302",
+  "skill_version_file": "0.2.6",
+  "context_skill_available_at_start": true,
+  "observed_skill_invocations": [
+    "context-docs"
+  ],
+  "observed_context_files_changed": [
+    "docs/decisions.md",
+    "docs/export-requirement.md",
+    "docs/project-context.md"
+  ],
+  "context_diff": "ordinary-prompt-context.diff",
+  "coordinator_rerun": {
+    "command": "npm test",
+    "passed": true,
+    "tests": 20
+  },
+  "browser_checks_run_in_this_case": false,
+  "limits": [
+    "One Claude Code run with repository maintenance instructions and installed skill available; Codex was not rerun.",
+    "This fixture used existing locked dependencies through a read-only node_modules symlink and allowed npm test; other shell checks were blocked.",
+    "The temporary implementation is separate from the published integrated app, which has 18 tests.",
+    "Other walkthrough prompts are authored instructions, not a recorded multi-session trial.",
+    "No claim of dependable implicit selection, improved handoffs, effort savings or general reliability.",
+    "Two earlier configuration-limited attempts did not expose the installed skill and are retained in private operator notes; they do not establish skill use."
+  ],
+  "raw_trace_sha256": "dc4d94d1685815d88c31cba1941580550f56e1836cc89d3254f1df5a2dadf898",
+  "retained_wording_qualification": "The decision diff says IDs, timestamps and the session never leave the Worker. This is overbroad: the existing list API returns item IDs/timestamps and the session cookie is sent to the browser. Only the new export response excludes those fields. The original observed diff is preserved.",
+  "published_starter_commit": "238d1d3c0921d304edc8770ced18355972cb7d64",
+  "fixture_difference_from_published_starter": "The final starter adds LICENSE and updates docs/walkthrough.md; application code is unchanged."
+}

@@ -19,6 +19,7 @@ const list = document.getElementById('items');
 const filterEmpty = document.getElementById('filter-empty');
 const empty = document.getElementById('empty');
 const statusRegion = document.getElementById('status');
+const exportButton = document.getElementById('export-button');
 const filterButtons = document.querySelectorAll('.filter');
 
 // ---- API -------------------------------------------------------------------
@@ -195,6 +196,34 @@ async function deleteItem(item, button) {
     showError(listError, error.message);
   }
 }
+
+async function exportQueue() {
+  hideError(listError);
+  exportButton.disabled = true;
+  try {
+    // Fetch the full current queue rather than exporting filtered or stale UI state.
+    const data = await api('GET', '/api/export');
+    if (data?.schema_version !== 1 || !Array.isArray(data.items)) {
+      throw new ApiError('The export response was invalid. Please try again.');
+    }
+    const blob = new Blob([JSON.stringify(data, null, 2) + '\n'], { type: 'application/json' });
+    const downloadUrl = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = downloadUrl;
+    link.download = 'reading-queue.json';
+    document.body.append(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(downloadUrl), 1000);
+    announce(`Exported ${data.items.length} links.`);
+  } catch (error) {
+    showError(listError, error.message);
+  } finally {
+    exportButton.disabled = false;
+  }
+}
+
+exportButton.addEventListener('click', exportQueue);
 
 function setFilter(filter) {
   state.filter = filter;

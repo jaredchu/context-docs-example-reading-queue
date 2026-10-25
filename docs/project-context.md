@@ -12,29 +12,42 @@ The owner requested a runnable, auto-deployable public GitHub example and a live
 Cloudflare demo on October 25, 2026. The coordinator selected Reading Queue, Workers
 and D1 as the smallest useful example. R2, authentication and link fetching are
 out of scope. Do not fetch submitted URLs. Do not add paid services or credentials
-to files. Main website walkthrough remains a preview pending publication direction.
+to files. The owner also authorized publishing the companion website walkthrough after
+validation.
 
 ## Current work
 
-The baseline implements adding, marking read/unread, filtering and deletion.
-The 16 Worker integration tests passed locally on October 25, 2026 against real
-workerd/D1. A Wrangler deployment dry run and local schema migration passed;
-`npm audit` reports zero vulnerabilities with the compatible undici override.
-These are application checks, not a Context Docs agent evaluation.
+The app implements adding, marking read/unread, filtering, deletion and JSON
+export. Export fetches the whole active browser queue regardless of the UI
+filter, with only title, URL and read state. No schema change or extra service
+was needed. The [requirement](export-requirement.md) and
+[decision](decisions.md#export-exercise) own that behavior.
 
-JSON export remains pending. The [requirement](export-requirement.md) and
-[decision](decisions.md#export-exercise) own its scope: export the whole active
-queue regardless of the UI filter, without session metadata or writes.
-Next action: implement that change, test downloads and errors, update context,
-then complete the authorized repository publication and Cloudflare deployment.
+On October 25, 2026, all 18 Worker integration tests passed against real local
+workerd/D1, including export isolation, physically present expired rows and
+row-by-row non-mutation. A Wrangler deployment dry run and local migration passed.
+The dependency audit reports zero vulnerabilities with the compatible undici
+override. Local headless Chrome checks verified CRUD, persistence, filtering,
+fresh full-queue download, empty download, safe text rendering, separate browser
+contexts, and failure without a download. Desktop/mobile checks found no page-wide
+horizontal overflow. No screen-reader, load or production-abuse assessment ran.
+These are application checks, not proof of Context Docs benefit or general
+automatic maintenance.
+
+The starter tag retains the pending requirement; the completed tag preserves
+this implementation and updated context. Opus reviewed the coordinator's
+integration and deployment boundaries; verified findings were resolved before
+publication. Next action for the upstream maintainer: publish the example,
+verify its automatic Cloudflare deployment and publish the companion walkthrough
+after validation. Deployment has not yet been verified at this snapshot.
 See the [worked steps](walkthrough.md).
 
 ```text
 Goal: runnable example and reproducible context handoff
-|-- DONE    Implement and test baseline app
-|-- READY   Starter state with linked export requirement
-|-- NEXT    Implement export, preserve decision and validation evidence
-`-- NEXT    Publish app repository, deploy demo, verify CI/CD and website preview
+|-- DONE    Baseline tested; starter revision retained
+|-- DONE    Export implemented with requirement and decision preserved
+|-- CHECKED 18 integration tests and desktop/mobile browser checks
+`-- NEXT    Publish, deploy and verify the live app and companion walkthrough
 ```
 
 ## Boundaries

@@ -7,6 +7,7 @@
 //   GET    /api/health     -> 200 { ok: true, revision }
 //   GET    /api/items      -> 200 { items: [Item], limit }
 //                             Sets the session cookie if absent. Never writes to D1.
+//   GET    /api/export     -> 200 downloadable { schema_version: 1, items: [{ title, url, read }] }
 //   POST   /api/items      -> 201 { item }      body: { "title": string, "url": string }
 //   PATCH  /api/items/:id  -> 200 { item }      body: { "read": boolean }
 //   DELETE /api/items/:id  -> 204 (no body)
@@ -99,6 +100,11 @@ async function handleApi(request, env, url) {
     return json({ ok: true, revision: env.APP_REVISION || 'local' });
   }
 
+  if (pathname === '/api/export') {
+    if (method !== 'GET') return methodNotAllowed('GET');
+    return exportItems(request, env, url);
+  }
+
   if (pathname === '/api/items') {
     if (method === 'GET') return listItems(request, env, url);
     if (method === 'POST') return createItem(request, env, url);
@@ -119,6 +125,14 @@ async function handleApi(request, env, url) {
 
 async function listItems(request, env, url) {
   const session = getSession(request);
+  const items = await activeItems(env, session);
+  const response = json({ items, limit: MAX_ITEMS_PER_SESSION });
+  if (session.isNew) response.headers.append('Set-Cookie', sessionCookie(session.id, url));
+  return response;
+}
+
+// A shared read path keeps export scoped to the same live rows as the queue.
+async function activeItems(env, session) {
   let items = [];
   if (!session.isNew) {
     const { results } = await env.DB.prepare(
@@ -131,7 +145,14 @@ async function listItems(request, env, url) {
     items = results.map(toItem);
   }
 
-  const response = json({ items, limit: MAX_ITEMS_PER_SESSION });
+  return items;
+}
+
+async function exportItems(request, env, url) {
+  const session = getSession(request);
+  const items = (await activeItems(env, session)).map(({ title, url, read }) => ({ title, url, read }));
+  const response = json({ schema_version: 1, items });
+  response.headers.set('Content-Disposition', 'attachment; filename="reading-queue.json"');
   if (session.isNew) response.headers.append('Set-Cookie', sessionCookie(session.id, url));
   return response;
 }

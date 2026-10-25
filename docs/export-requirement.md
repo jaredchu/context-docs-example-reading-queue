@@ -1,6 +1,6 @@
 # JSON export change
 
-Status: pending at `tutorial-start`. This teaching requirement was chosen by the
+Status: implemented in the completed revision; pending at `tutorial-start`. This teaching requirement was chosen by the
 implementation team; it is not a verbatim owner request or historical transcript.
 
 ## Acceptance criteria
@@ -21,3 +21,11 @@ implementation team; it is not a verbatim owner request or historical transcript
 Run the API tests, add meaningful export coverage (filter independence, empty
 queue, session isolation, no writes), then check the actual browser download
 and an error case. Update current context only from observed results.
+
+## Completed checks
+
+The 18-test application suite passed locally on October 25, 2026. Export coverage
+checks both read states, another browser, a physically stored expired row, an
+empty queue and unchanged database rows. Headless Chrome checked the actual
+download under Unread filtering, a fresh server-side addition, empty export and
+a failed request producing no file. These checks are not an agent evaluation.
