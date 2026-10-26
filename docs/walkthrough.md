@@ -2,7 +2,9 @@
 
 This is an authored teaching case, not an independent performance evaluation or
 a transcript. The real Git snapshots are `tutorial-start` (export pending) and
-`tutorial-complete` (export implemented). Both remain runnable locally.
+`tutorial-complete` (export implemented). Both remain runnable locally. The tags
+keep their original documents; this main-branch walkthrough and its linked
+requirement and decision notes include later clarifications.
 
 ## 1. Start from the baseline
 
@@ -22,10 +24,17 @@ stays off. Read the [entry point](project-context.md) and relevant source links.
 
 ## 3. Audit without editing
 
-Ask: "Use context-docs to audit project context against the linked decisions,
-requirement, source and tests. Report concrete gaps; leave files unchanged."
-Compare `git status --short` before and after. A later maintenance request can
-authorize repairs; an audit cannot.
+Ask: "Audit this project’s saved context against its README, linked decisions,
+export requirement, source and tests. Report concrete inaccuracies, unsupported
+claims and missing next steps with source locations. Leave files unchanged."
+A later maintenance request can authorize repairs; an audit cannot.
+
+To check that nothing changed, compare file contents before and after, not only
+`git status --short` categories: an already-modified file can change again with
+the same status. Start from a clean checkout, or before the audit save the `git diff`
+output plus copies or checksums of already-modified and relevant untracked
+files outside the checkout. `git diff` shows tracked changes only; status lists untracked files
+without comparing their contents and omits ignored files.
 
 ## 4. Save the requirement and handoff
 
@@ -53,13 +62,21 @@ if maintenance is missed, retain the miss and request a focused repair.
 The agent still needs to inspect code.
 When sessions share a context file, agree on one writer.
 
+A genuinely new conversation can test the handoff immediately; no delay is
+needed. Native memory can also contribute to what a fresh session knows. Keep
+your usual settings for ordinary use. For a diagnostic exercise, record the
+client's memory and instruction-loading settings and inspect which sources the
+agent read. The [recorded Claude case](evidence/README.md) disabled auto memory
+as a diagnostic condition, not as a rule for normal use.
+
 ## 6. Verify the implementation and context
 
 Run `npm test`, `npx wrangler deploy --dry-run --outdir .local/build` and
 `git diff --check`. Inspect the diff. In a browser, add two public links, mark
 one read, select Unread and export: both active items should be in the file.
-Use another browser context for isolation. Check an empty export and simulate a
-failed export request: show an error and do not download. Confirm exported data
+Use another browser context for isolation. Check an empty export
+(`{"schema_version":1,"items":[]}`) and simulate a failed export request: show
+an error and do not download. Confirm exported data
 contains no cookie/session/database metadata. These are application checks, not
 Context Docs agent evaluations.
 

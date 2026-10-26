@@ -34,24 +34,27 @@ horizontal overflow. No screen-reader, load or production-abuse assessment ran.
 These are application checks, not proof of Context Docs benefit or general
 automatic maintenance.
 
-The app is live at the [demo URL](https://context-docs-example-reading-queue.viweb.workers.dev).
-The [automatic workflow](https://github.com/jaredchu/context-docs-example-reading-queue/actions/runs/40158636168)
-tested and deployed `0f68893139bdc8d6dfca218f87410f655b691cc3`. All four served
-static files match that source, the health endpoint reports the commit, and live
-headless Chrome checks passed for CRUD, isolated queues, persistence, fresh
-whole-queue export, empty export and request failure without a file. A first
-Python urllib check received HTTP 403; Node fetch and real browser checks passed.
-Daily cleanup is configured and locally tested; no daily live cron occurrence
-has been observed.
+The [live demo](https://context-docs-example-reading-queue.viweb.workers.dev)
+was automatically tested and deployed from `0f68893` on October 25. The
+[publication record](evidence/publication-2026-10-25.md) retains the workflow,
+source verification, browser checks, collaboration history and diagnostic limits.
+The [ordinary-prompt case](evidence/README.md) separately records observed context
+maintenance and its wording qualification. The
+[companion walkthrough](https://context-docs.com/reading-queue/) remains published
+from the verified `b38853d` website build.
 
-The starter and completed tags preserve the pending requirement and implemented
-change. Codex reviewed the Opus baseline; Opus reviewed the integration and one
-focused follow-up found no material issues. The [normal-prompt evidence](evidence/README.md)
-records a separate observed maintenance outcome and its wording qualification.
-The [companion walkthrough](https://context-docs.com/reading-queue/) is now live
-from the verified `b38853d` Context Docs website build. Next action for the
-upstream maintainer: gather concrete learner feedback. Documentation-only commits do not redeploy
-the app or replace the actual deployed source SHA.
+On October 26, the owner requested a local preview of targeted teaching and
+navigation fixes after independent page reviews. Current main-branch documents
+clarify the existing export requirement and rationale, audit checking and prompt
+wording. The retained `tutorial-start` and `tutorial-complete` tags keep their
+original documents and code. These are documentation changes; no app behavior,
+dependency, deployment or native agent trial changed.
+
+Next for learners: use the starter and walkthrough, compare code and context
+against the requirement, and report unclear steps or assistance needed. Next for
+the upstream maintainer: review the verified local cleanup preview and collect the
+planned unfamiliar learner feedback. Documentation-only commits do not redeploy
+the app or replace its actual deployed source.
 
 See the [worked steps](walkthrough.md).
 
@@ -60,7 +63,8 @@ Goal: runnable example and reproducible context handoff
 |-- DONE    Baseline tested; starter revision retained
 |-- DONE    Export implemented with requirement and decision preserved
 |-- CHECKED 18 integration tests and desktop/mobile browser checks
-`-- LIVE    App automatically deployed and verified; companion walkthrough published
+|-- LIVE    App automatically deployed and verified; companion walkthrough published
+`-- PREVIEW Main-branch teaching clarifications; retained tags unchanged
 ```
 
 ## Boundaries

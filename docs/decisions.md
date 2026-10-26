@@ -31,6 +31,12 @@ schema migration or extra service. Export always contains the visitor's entire
 active queue, regardless of the UI filter, and excludes session identifiers.
 The [requirement](export-requirement.md) owns acceptance criteria.
 
+Clarification by the implementation team, October 26, 2026: the filter changes
+only which links the UI shows. Changing the view should not change which active
+saved links the export contains. This clarification was added to this decision
+note on October 26; it is not a historical owner statement and changes no
+behavior. The tagged revisions keep the original note.
+
 ## Optional history
 
 Status: off. Git commits, decision notes and test/deployment output are enough

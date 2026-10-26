@@ -2,6 +2,8 @@
 
 Status: implemented in the completed revision; pending at `tutorial-start`. This teaching requirement was chosen by the
 implementation team; it is not a verbatim owner request or historical transcript.
+The empty-export wording was clarified on October 26, 2026, without a behavior
+change; the tagged revisions keep the original text.
 
 ## Acceptance criteria
 
@@ -10,7 +12,9 @@ implementation team; it is not a verbatim owner request or historical transcript
   items hidden by a filter. It excludes expired items and other browser sessions.
 - The JSON has `schema_version: 1` and `items`, each with `title`, `url` and boolean
   `read`. Exclude session cookies, database IDs and account identifiers.
-- An empty queue exports an empty array. Export does not mutate stored data.
+- An empty queue exports an empty `items` array under the same versioned shape:
+  `{"schema_version":1,"items":[]}` (whitespace may differ). Export does not
+  mutate stored data.
 - Fetch fresh data from the API when exporting; surface a failed request and do
   not download a file in that case.
 - Preserve existing CRUD, isolation, expiry and cap behavior. No schema change,
