@@ -41,7 +41,8 @@ source verification, browser checks, collaboration history and diagnostic limits
 The [ordinary-prompt case](evidence/README.md) separately records observed context
 maintenance and its wording qualification. The
 [companion walkthrough](https://context-docs.com/reading-queue/) remains published
-from the verified `b38853d` website build.
+from the verified `ee9211e` website cleanup build on October 26; the initial
+`b38853d` publication remains in the historical record.
 
 On October 26, the owner requested a local preview of targeted teaching and
 navigation fixes after independent page reviews. Current main-branch documents
@@ -52,9 +53,10 @@ dependency, deployment or native agent trial changed.
 
 Next for learners: use the starter and walkthrough, compare code and context
 against the requirement, and report unclear steps or assistance needed. Next for
-the upstream maintainer: review the verified local cleanup preview and collect the
-planned unfamiliar learner feedback. Documentation-only commits do not redeploy
-the app or replace its actual deployed source.
+the upstream maintainer: collect the planned unfamiliar learner feedback on the
+published companion cleanup. The website-only deployment did not redeploy this
+app. Documentation-only commits do not redeploy the app or replace its actual
+deployed source.
 
 See the [worked steps](walkthrough.md).
 
