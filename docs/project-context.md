@@ -74,3 +74,14 @@ Goal: runnable example and reproducible context handoff
 Use synthetic/public example data only. Keep operator receipts outside the public project when they contain private
 account details. No claimed agent-benefit evaluation; this is an authored
 worked example. Optional event logging is off.
+
+## Agent-switching examples
+
+The owner approved two direction-specific Context Docs walkthroughs on November
+7, 2026. They reuse this app through a separate `switching-start` teaching tag
+based on `tutorial-start`; the original tags and main application behavior remain
+unchanged. The [examples index](https://context-docs.com/examples/) links both
+cases and the full Reading Queue walkthrough at its new `/examples/reading-queue/`
+location. The switching task requires no app redeployment or new cloud resource.
+Observed checks and their limits live in the
+[Context Docs evidence record](https://github.com/jaredchu/context-docs/blob/main/evals/handoff/2026-11-07-cross-client/README.md).

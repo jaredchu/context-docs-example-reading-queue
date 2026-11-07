@@ -1,7 +1,7 @@
 # Reading Queue
 
 [Live demo](https://context-docs-example-reading-queue.viweb.workers.dev) ·
-[Step-by-step prompts](https://context-docs.com/reading-queue/) ·
+[Step-by-step prompts](https://context-docs.com/examples/reading-queue/) ·
 [Starter](https://github.com/jaredchu/context-docs-example-reading-queue/tree/tutorial-start) ·
 [Completed example](https://github.com/jaredchu/context-docs-example-reading-queue/tree/tutorial-complete)
 
@@ -46,6 +46,24 @@ own the exercise's acceptance criteria. AGENTS.md contains the maintenance rule;
 CLAUDE.md imports it. Install the Context Docs skills separately using the
 [installation guide](https://context-docs.com/getting-started/). This repository
 does not install skills or change your agent settings.
+
+## Switch between Codex and Claude Code
+
+The [examples collection](https://context-docs.com/examples/) includes separate
+[Codex → Claude Code](https://context-docs.com/examples/switching-codex-claude/)
+and [Claude Code → Codex](https://context-docs.com/examples/switching-claude-codex/)
+walkthroughs. Both reuse this app at the `switching-start` tag: the first agent
+implements the export API and saves context, then the second finishes the browser
+integration from the saved files. Use a fresh branch from that tag, rather than
+main or a completed earlier attempt.
+
+The switching snapshot keeps the original tutorial's `docs/walkthrough.md` as
+background; follow the new direction-specific page and that snapshot's current
+context for the switching exercise. No application deployment is part of it.
+The [bounded native case record](https://github.com/jaredchu/context-docs/blob/main/evals/handoff/2026-11-07-cross-client/README.md)
+retains observed continuations, separate coordinator API/browser checks and
+limitations. These authored examples do not establish general reliability or
+comparative savings. Original tutorial tags and the live app are unchanged.
 
 ## Deploy your own copy
 
