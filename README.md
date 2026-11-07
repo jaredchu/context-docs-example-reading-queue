@@ -1,3 +1,23 @@
+# Reading Queue: switch coding agents
+
+This `switching-start` snapshot reuses the Reading Queue application at
+`tutorial-start` for two authored Context Docs exercises:
+
+- [Codex → Claude Code](https://context-docs.com/examples/switching-codex-claude/)
+- [Claude Code → Codex](https://context-docs.com/examples/switching-claude-codex/)
+
+Start with [project context](docs/project-context.md). The outgoing agent builds
+the export API and saves context; the receiving agent finishes the browser work
+from the saved files. No conversation needs to be copied. Use a fresh branch from
+this tag, install the released Context Docs skills for both clients separately,
+then follow the chosen walkthrough. Node 22+ and npm are needed for local API
+checks; cloud services and deployment are outside this exercise.
+
+The original README below documents the app and its separate deployment route;
+that route is optional background, not authorization for this switching exercise.
+
+---
+
 # Reading Queue
 
 A runnable [Context Docs](https://context-docs.com/) worked example using
